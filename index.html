@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playbook-P3-M14</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 20px;
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .banner {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        .banner .title {
+            font-size: 1.2em;
+            display: flex;
+            justify-content: space-between;
+        }
+        .banner .subtitle {
+            font-size: 1em;
+            margin-top: 5px;
+            border-top: 1px solid white;
+            padding-top: 5px;
+        }
+        .content {
+            display: none;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .section {
+            margin-bottom: 15px;
+        }
+        .step-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+        .section-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            text-align: right;
+        }
+        .dialogue {
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: right;
+            font-style: italic;
+        }
+        .dropdown {
+            margin-bottom: 20px;
+        }
+        .dropdown select {
+            font-size: 1em;
+            padding: 5px;
+            margin-left: 10px;
+        }
+        .time-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .note {
+            background-color: #ffeb3b;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .nav-buttons button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        .nav-buttons button:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+    </style>
+    <script>
+        function toggleContent(id) {
+            var content = document.getElementById(id);
+            if (content.style.display === "none") {
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
+            }
+        }
+
+        function updateActivities() {
+            var selectedTime = document.getElementById('time-select').value;
+            var activities = document.getElementsByClassName('activity');
+
+            document.getElementById('selected-time').innerText = "Tiempo efectivo de clase: " + selectedTime + " minutos";
+
+            // Mostrar todas las actividades inicialmente
+            for (var i = 0; i < activities.length; i++) {
+                activities[i].style.display = 'block';
+            }
+
+            // Ajustes para 45 minutos (eliminar actividad 2)
+            if (selectedTime === '45') {
+                document.getElementById('activity-2').style.display = 'none';
+            }
+            
+            // Ajustes para 40 minutos (eliminar actividad 2 y pasos 6 y 7 de actividad 4)
+            if (selectedTime === '40') {
+                document.getElementById('activity-2').style.display = 'none';
+                var steps = document.querySelectorAll('#activity-4 .step');
+                if (steps.length > 5) {
+                    steps[5].style.display = 'none'; // Paso 6
+                    steps[6].style.display = 'none'; // Paso 7
+                }
+            }
+        }
+
+        function navigateTo(id) {
+            var element = document.getElementById(id);
+            window.scrollTo({
+                top: element.offsetTop,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</head>
+<body onload="updateActivities()">
+
+<div class="header">
+    <h1>Playbook-P3-M14</h1>
+</div>
+
+<div class="container">
+    <div class="dropdown">
+        <label for="time-select">Tiempo efectivo de Clase:</label>
+        <select id="time-select" onchange="updateActivities()">
+            <option value="50">50 minutos</option>
+            <option value="45">45 minutos</option>
+            <option value="40">40 minutos</option>
+        </select>
+    </div>
+
+    <h2 id="selected-time" class="time-title">Tiempo efectivo de clase: 50 minutos</h2>
+
+    <!-- Aquí van las actividades -->
+<div id="activity-0" class="activity">
+    <div class="banner" onclick="toggleContent('revision_mision')">
+        <div class="title">📚 Actividad 0: Revisión de Misión ⏰ Tiempo: N/A</div>
+        <div class="subtitle">Revisar los materiales necesarios para la misión.</div>
+    </div>
+    <div id="revision_mision" class="content">
+        <table>
+            <tr>
+                <td><strong>PASO 1 (N/A):</strong> Proyectar Diapositiva 1: Revisar los materiales (computadoras con acceso a Scratch, Magic Tablets, mouse).</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> No requiere diálogo (revisión interna del profesor).</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="activity-1" class="activity">
+    <div class="banner" onclick="toggleContent('saludo_ritual')">
+        <div class="title">🎉 Actividad 1: Saludo y Ritual Gnius Club ⏰ Tiempo: 6 minutos</div>
+        <div class="subtitle">Dar la bienvenida a los estudiantes y preparar el ambiente para la misión del día.</div>
+    </div>
+    <div id="saludo_ritual" class="content">
+        <table>
+            <tr>
+                <td><strong>PASO 1 (1 minuto):</strong> Proyectar Diapositiva 2: Saludar a los estudiantes con entusiasmo y hablar sobre la misión del día.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> ¡Hola, Genios! 🌟 Hoy tenemos un reto increíble: ¡Vamos a combinar variables y condicionales para crear un proyecto interactivo súper complejo! ¿Listos para programar algo épico?</td>
+            </tr>
+            <tr>
+                <td><strong>PASO 2 (2.5 minutos):</strong> Proyectar Diapositiva 3: Pedir a los estudiantes que elijan su estado de ánimo utilizando dos nuevas posturas tecnológicas.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> Si te sientes como un robot listo para programar, haz una pose de robot moviendo los brazos como si estuvieras funcionando con código. Si necesitas más energía, haz una pose de recarga como si fueras un robot que está enchufando sus baterías. ¡A ver esas posturas tecnológicas!</td>
+            </tr>
+            <tr>
+                <td><strong>PASO 3 (1.5 minutos):</strong> Proyectar Diapositiva 4: Guiar el ritual de agradecimiento.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> Gracias por estar aquí, Genios. Hoy vamos a divertirnos programando y explorando nuevas ideas. ¡Es un gran día para ser creativos!</td>
+            </tr>
+            <tr>
+                <td><strong>PASO 4 (1 minuto):</strong> Proyectar Diapositiva 5: Explicar los dos grandes objetivos del día: entender el uso avanzado de variables y condicionales y crear un proyecto interactivo en Scratch.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> Hoy tenemos dos grandes objetivos: 1) Usar múltiples variables y condicionales para que nuestros personajes tomen decisiones inteligentes. 2)  Dar retroalimentación de proyecto en equipo. ¡Vamos a hacerlo posible!</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="activity-2" class="activity">
+    <div class="banner" onclick="toggleContent('state_change')">
+        <div class="title">💃 Actividad 2: State Change ⏰ Tiempo:  4 minutos</div>
+        <div class="subtitle">Actividad física donde los estudiantes imitan un personaje que cambia de estado.</div>
+    </div>
+    <div id="state_change" class="content">
+        <table>
+            <tr>
+                <td><strong>PASO 1 (1 minuto):</strong> Proyectar Diapositiva 6: Explicar la actividad física donde los estudiantes imitarán un personaje que cambia de estado (feliz, cansado, energético) según ciertas condiciones.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> ¡Genios! Antes de empezar a programar, vamos a activar nuestro cuerpo. Imaginen que son personajes en un videojuego y que sus emociones cambian según ciertas condiciones. Cuando diga 'feliz', sonrían y salten. Cuando diga 'cansado', hagan una pose como si necesitaran descansar. Y cuando diga 'energético', muévanse con toda la energía que tengan. ¡Vamos a ver esos cambios de estado!</td>
+            </tr>
+            <tr>
+                <td><strong>PASO 2 (3 minutos):</strong> Proyectar Diapositiva 7: Los estudiantes imitarán diferentes emociones según el comando del maestro.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> ¡Feliz! ¡Cansado! ¡Energético! Imaginen que son personajes programados que cambian de estado. ¡A ver quién cambia más rápido y con más entusiasmo!</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="activity-3" class="activity">
+    <div class="banner" onclick="toggleContent('challenge')">
+        <div class="title">🛠️ Actividad 3: Challenge ⏰ Tiempo: 26 minutos</div>
+        <div class="subtitle">Crear un laberinto interactivo usando variables y condicionales.</div>
+    </div>
+    <div id="challenge" class="content">
+        <table>
+            <tr>
+                <td><strong>PASO 1 (1 minuto):</strong> Proyectar Diapositiva 8: Explicar el desafío donde los estudiantes deberán crear un laberinto interactivo que use múltiples variables y condicionales.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> ¡Genios, ha llegado el momento del reto! Hoy vamos a crear una Aventura Interactiva en un laberinto donde el personaje tendrá que recoger objetos, superar obstáculos y tomar decisiones usando variables y condicionales. El reto es lograr que el personaje avance si cumple ciertas condiciones, como tener la llave o haber reunido suficientes puntos. ¡Vamos a ver qué tan ingeniosos pueden ser!</td>
+            </tr>
+            <tr>
+                <td><strong>PASO 2 (1 minuto):</strong> Proyectar Diapositiva 9: Instruir a los estudiantes para que inicien el proyecto en Scratch.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> Presionen el botón 'Crear' en Scratch y vamos a diseñar el laberinto, el personaje, los objetos que recogerá y las trampas que tendrá que superar. Recuerden que su explorador tendrá que usar variables como vidas, puntos, y condicionales para que el guardia lo deje pasar. ¡Manos a la obra!</td>
+            </tr>
+            <tr>
+                <td><strong>PASO 3 (20 minutos):</strong> Proyectar Diapositiva 10: Temporizador de 20 minutos para que los estudiantes trabajen en sus proyectos.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> Tienen 20 minutos para programar. Recuerden que el personaje debe recolectar objetos para ganar puntos, encontrar la llave para abrir puertas, y enfrentar trampas. Usen condicionales para que el explorador solo pueda avanzar si cumple con los requisitos. ¡Vamos a ver cómo hacen que el laberinto cobre vida!</td>
+            </tr>
+            <tr>
+                <td><strong>PASO 4 (3 minutos):</strong> Proyectar Diapositiva 11: Reflexionar sobre cómo los estudiantes programaron el comportamiento del personaje en el laberinto usando condicionales y variables.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> Ahora que han completado sus proyectos, reflexionemos: ¿Cómo usaron las variables para manejar los puntos y las vidas del personaje? ¿Cómo decidieron cuándo el personaje podía avanzar usando condicionales? ¿Qué aprendieron al programar este proyecto?</td>
+            </tr>
+            <tr>
+                <td><strong>PASO 5 (0.5 minutos):</strong> Reflexión final (sin diapositiva): Reflexionar sobre el éxito del reto y motivar a los estudiantes a seguir explorando más desafíos.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> ¡Gran trabajo, Genios! Hoy crearon laberintos inteligentes que funcionan con variables y condicionales. ¡Me ha impresionado ver cómo sus personajes tomaban decisiones en el laberinto! La próxima vez, seguiremos explorando más formas de hacer proyectos aún más interactivos. ¡Listos para más desafíos!</td>
+            </tr>
+            <tr>
+                <td><strong>PASO 6 (0.5 minutos):</strong> Proyectar Diapositiva 12: Revisar brevemente los objetivos de la clase.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> Antes de terminar, revisemos nuestros objetivos: ¿Usaron variables para manejar los puntos, las vidas y el tiempo del personaje? ¿Crearon un proyecto interactivo con condicionales que controlan las decisiones del explorador? ¡Misión cumplida!</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="activity-4" class="activity">
+    <div class="banner" onclick="toggleContent('team_genius')">
+        <div class="title">🤝 Actividad 4: Team Genius ⏰ Tiempo: 11.5 minutos</div>
+        <div class="subtitle">Trabajo en equipo: Un estudiante juega y el otro observa para dar retroalimentación.</div>
+    </div>
+    <div id="team_genius" class="content">
+        <table>
+            <tr>
+                <td><strong>PASO 1 (1 minuto):</strong> Proyectar Diapositiva 14: Explicar que se formarán equipos de 2 estudiantes para que uno juegue y el otro observe y dé retroalimentación.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> Genios, ahora vamos a trabajar en equipos de dos para revisar nuestros proyectos. Un compañero jugará mientras el otro observa y toma notas sobre cómo mejorar los condicionales y variables. Luego, intercambiarán roles. ¡Es hora de trabajar juntos como un verdadero equipo de genios!</td>
+            </tr>
+            <tr>
+                <td><strong>PASO 2 (0.5 minutos):</strong> Proyectar Diapositiva 15: Temporizador de 30 segundos para que los estudiantes se organicen en equipos.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> Tienen 30 segundos para formar sus equipos. ¡Vamos, que el tiempo corre!</td>
+            </tr>
+            <tr>
+                <td><strong>PASO 3 (1 minuto):</strong> Proyectar Diapositiva 16: Instruir a los estudiantes para que recojan las Magic Tablets.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> Un integrante de cada equipo debe ir a recoger las Magic Tablets. ¡Solo uno por equipo!</td>
+            </tr>
+            <tr>
+                <td><strong>PASO 4 (0.5 minutos):</strong> Proyectar Diapositiva 17: Temporizador de 30 segundos para que los equipos recojan las Magic Tablets.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> Tienen 30 segundos para que un integrante de cada equipo recoja las Magic Tablets. ¡Rápido, que el tiempo corre!</td>
+            </tr>
+            <tr>
+                <td><strong>PASO 5 (4 minutos):</strong> Proyectar Diapositiva 18: Dar 4 minutos para que uno de los estudiantes trabaje en su proyecto y el otro observe y tome notas.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> Uno de ustedes va a jugar el proyecto mientras el otro observa y toma notas. Recuerden enfocarse en cómo mejorar los condicionales y variables. ¡Luego intercambiarán roles!</td>
+            </tr>
+            <tr>
+                <td><strong>PASO 6 (0.5 minutos):</strong> Proyectar Diapositiva 19: Temporizador de 30 segundos para intercambiar roles.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> Es hora de cambiar de roles. ¡Tienen 30 segundos para intercambiarse y que el otro compañero pueda trabajar en su proyecto!</td>
+            </tr>
+            <tr>
+                <td><strong>PASO 7 (4 minutos):</strong> Proyectar Diapositiva 20: Dar otros 4 minutos para que el estudiante que observó ahora trabaje en el proyecto.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> Ahora el que estaba observando trabajará en el proyecto y el otro tomará notas. ¡Vamos a ver cómo mejoran el uso de condicionales y variables en equipo!</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="activity-5" class="activity">
+    <div class="banner" onclick="toggleContent('honor_dojo')">
+        <div class="title">🎖️ Actividad 5: Honor de Dojo ⏰ Tiempo: 3.5 minutos</div>
+        <div class="subtitle">Revisión de objetivos, reconocimiento del esfuerzo y reflexión final.</div>
+    </div>
+    <div id="honor_dojo" class="content">
+        <table>
+            <tr>
+                <td><strong>PASO 1 (1 minuto):</strong> Proyectar Diapositiva 21: Mostrar los objetivos alcanzados y hacer una revisión rápida.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> Genios, antes de terminar, repasemos lo que logramos hoy. Hemos usado variables y condicionales para crear proyectos interactivos complejos. ¡Gracias al trabajo en equipo y la creatividad, hemos alcanzado nuestros objetivos!</td>
+            </tr>
+            <tr>
+                <td><strong>PASO 2 (0.5 minutos):</strong> Sin diapositiva: Agradecer a todos por su esfuerzo y reconocer el trabajo en equipo.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> Hoy todos ustedes trabajaron muy bien. ¡Me impresionó cómo usaron variables y condicionales para que sus proyectos cobraran vida! ¡Gran trabajo, Genios!</td>
+            </tr>
+            <tr>
+                <td><strong>PASO 3 (1 minuto):</strong> Proyectar Diapositiva 22: Guiar una reflexión sobre el trabajo en equipo y las áreas de mejora.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> Reflexionemos juntos: ¿Cómo ayudó el trabajo en equipo a mejorar sus proyectos? ¿Qué parte fue la más divertida o desafiante? ¿Qué podemos mejorar la próxima vez?</td>
+            </tr>
+            <tr>
+                <td><strong>PASO 4 (1 minuto):</strong> Proyectar Diapositiva 23: Motivar a los estudiantes a recoger su espacio de trabajo, dejando todo en orden.</td>
+                <td><strong>DIÁLOGO SUGERIDO:</strong> Para terminar, honremos nuestro espacio de trabajo organizando y recogiendo todo lo que usamos hoy. ¡Un buen genio siempre deja todo limpio y en orden!</td>
+            </tr>
+        </table>
+    </div>
+</div>
+    </div> <!-- Cierre del container -->
+
+    <!-- Scripts adicionales si es necesario -->
+    <script>
+        // Agregar scripts adicionales aquí si es necesario
+    </script>
+
+</body>
+</html>
